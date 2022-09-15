@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket Example</title>
+</head>
+
+<body>
+    <h1>Socket</h1>
+    <br>
+    <h1 id="view"></h1>
+    <br>
+    <h1 id="view2"></h1>
+    <br>
+    <h1 id="view3"></h1>
+    <br>
+    <input type="text" name="name" id="name">
+    <button onclick="myFunction()">Click me</button>
+    <br>
+    <input type="text" name="broadcastname" id="broadcastname">
+    <button onclick="myFunctionBroadcast()">Broadcast</button>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+
+    function myFunction() {
+        var data = document.getElementById("name").value;
+        socket.emit('myMessage', data);
+    }
+
+    function myFunctionBroadcast() {
+        var data = document.getElementById("broadcastname").value;
+        socket.broadcast.emit('newclientconnect', data + ' newclientconnect broadcast Client' + + Date.now())
+    }
+
+    socket.on('newclientconnect', function (res) {
+        document.getElementById("view3").innerHTML = res;
+    });
+
+    socket.on('broadcast', function (res) {
+
+    });
+
+    ///Custom
+    socket.on('myMessage', function (res) {
+        document.getElementById("view2").innerHTML = res;
+    });
+
+    socket.on('message', function (res) {
+        document.getElementById("view").innerHTML = res;
+    });
+</script>
+
+</html>
