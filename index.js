@@ -21,13 +21,8 @@ io.on('connection', function (socket) {
     ///Custom
     socket.on('myMessage', function (res) {
         socket.emit('myMessage', res + " Client" + Date.now());
-    });
-
-    ///broadcast
-    io.sockets.emit('broadcast', 'broadcast Client' + + Date.now());
-
-    socket.on('newclientconnect', function (res) {
-        socket.broadcast.emit('newclientconnect', res + ' newclientconnect broadcast Client' + + Date.now())
+        //broadcast message send
+        io.sockets.emit('broadcast', 'broadcast message ' +res);
     });
 
     //Whenever someone disconnects this piece of code executed
