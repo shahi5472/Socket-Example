@@ -19,6 +19,8 @@
     <br>
     <input type="text" name="name" id="name">
     <button onclick="myFunction()">Click me</button>
+    <br><br>
+    <button onclick="myJoinRoomFunction()">Join Room</button>
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script>
@@ -41,6 +43,18 @@
     socket.on('message', function (res) {
         document.getElementById("view").innerHTML = res;
     });
+
+    //join rooms
+    function myJoinRoomFunction(){
+        alert('Join Room Button Click');
+       
+    }
+
+    socket.on('roomMessage', function (res) {
+        document.getElementById("view3").innerHTML = res;
+    });
+
+
 </script>
 
 </html>

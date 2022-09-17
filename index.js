@@ -22,13 +22,17 @@ io.on('connection', function (socket) {
     socket.on('myMessage', function (res) {
         socket.emit('myMessage', res + " Client" + Date.now());
         //broadcast message send
-        io.sockets.emit('broadcast', 'broadcast message ' +res);
+        io.sockets.emit('broadcast', 'broadcast message ' + res);
     });
 
     //Whenever someone disconnects this piece of code executed
     socket.on('disconnect', function () {
         console.log('A user disconnected');
     });
+
+    //joining rooms
+    socket.join('room1');
+    socket.in('room1').emit('roomMessage', 'join room message');
 });
 
 http.listen(3000, function () {
